@@ -38,7 +38,7 @@ class _StorageViewState extends State<StorageView> {
             itemCount: data.length,
             itemBuilder: (context, i) => ListTile(
               title: Text(
-                '${values[i].type.title} : ${keys[i]} : ${values[i].value}',
+                '${values[i].runtimeType} : ${keys[i]} : ${values[i]}',
               ),
             ),
           );
