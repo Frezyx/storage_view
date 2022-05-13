@@ -32,16 +32,59 @@ class _StorageViewState extends State<StorageView> {
         animation: _controller,
         builder: (context, _) {
           final data = _controller.data;
-          final keys = data.keys.toList();
-          final values = data.values.toList();
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, i) => ListTile(
-              title: Text(
-                '${values[i].runtimeType} : ${keys[i]} : ${values[i]}',
-              ),
-            ),
-          );
+          return DataTable(
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: Text(
+                    'Key',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Value',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Type',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+              rows: data.entries
+                  .map(
+                    (e) => DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Text(e.key),
+                        ),
+                        DataCell(
+                          Text('${e.value}'),
+                        ),
+                        DataCell(
+                          Text('${e.value.runtimeType}'),
+                        ),
+                      ],
+                    ),
+                  )
+                  .toList());
+
+          // ListView.builder(
+          //   itemCount: data.length,
+          //   itemBuilder: (context, i) => ListTile(
+          //     title: Text(
+          //       '${values[i].runtimeType} : ${keys[i]} : ${values[i]}',
+          //     ),
+          //   ),
+          // );
         },
       ),
     );
