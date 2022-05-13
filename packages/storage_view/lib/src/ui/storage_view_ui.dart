@@ -27,55 +27,72 @@ class _StorageViewState extends State<StorageView> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Material(
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
           final data = _controller.data;
-          return DataTable(
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    'Key',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: const Text(
+                      'Key',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    onSort: _controller.cangeFilter,
                   ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Value',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  DataColumn(
+                    label: const Text(
+                      'Value',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    onSort: _controller.cangeFilter,
                   ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Type',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  DataColumn(
+                    label: const Text(
+                      'Type',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    onSort: _controller.cangeFilter,
                   ),
-                ),
-              ],
-              rows: data.entries
-                  .map(
-                    (e) => DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Text(e.key),
-                        ),
-                        DataCell(
-                          Text('${e.value}'),
-                        ),
-                        DataCell(
-                          Text('${e.value.runtimeType}'),
-                        ),
-                      ],
-                    ),
-                  )
-                  .toList());
+                  const DataColumn(label: Text('')),
+                ],
+                rows: data.entries
+                    .map(
+                      (e) => DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text(e.key)),
+                          DataCell(
+                            Container(
+                              constraints:
+                                  BoxConstraints(maxWidth: size.width * 0.5),
+                              child: Text('${e.value}'),
+                            ),
+                          ),
+                          DataCell(Text('${e.value.runtimeType}')),
+                          DataCell(Row(
+                            children: [
+                              IconButton(
+                                splashRadius: 20,
+                                onPressed: () {},
+                                icon: const Icon(Icons.close),
+                              )
+                            ],
+                          )),
+                        ],
+                      ),
+                    )
+                    .toList()),
+          );
 
           // ListView.builder(
           //   itemCount: data.length,

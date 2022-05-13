@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/models/models.dart';
+import 'package:storage_view/src/ui/controller/models/models.dart';
 
 class StorageViewerController extends ChangeNotifier {
   StorageViewerController(this._storage);
@@ -12,6 +13,9 @@ class StorageViewerController extends ChangeNotifier {
   final _data = <String, dynamic>{};
   Map<String, dynamic> get data => _data;
 
+  // var _filter = StorageViewerFilter.initial();
+  // StorageViewerFilter get filter => _filter;
+
   Future<void> load() async {
     _keys = await _storage.getKeys();
     _data.clear();
@@ -20,5 +24,14 @@ class StorageViewerController extends ChangeNotifier {
       _data[key] = value;
     }
     notifyListeners();
+  }
+
+  void cangeFilter(int index, bool asc) {
+    // _filter = _filter.copyWith(
+    //   type: ViewerFilterType.fromIndex(index),
+    //   asc: asc,
+    // );
+    // _data.entries.toList().sort((a, b) => a.key.compareTo(b.key));
+    // notifyListeners();
   }
 }
