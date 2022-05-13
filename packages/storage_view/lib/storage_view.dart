@@ -1,3 +1,3 @@
 library storage_view;
 
-export 'src/storage_view_ui.dart';
+export 'src/ui/storage_view_ui.dart';

@@ -1,6 +1,8 @@
+import 'dart:async';
+
 abstract class StorageDriver {
-  Future<List<String>> getKeys<String>();
-  Future<void> write<T>({required String key, required T value});
-  T? read<T>({required String key});
-  Future<void> delete(String key);
+  FutureOr<Set<String>> getKeys<String>();
+  FutureOr<T?> read<T>(String key);
+  FutureOr<void> write<T>({required String key, required T value});
+  FutureOr<void> delete(String key);
 }
