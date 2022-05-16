@@ -22,8 +22,12 @@ class _MyAppState extends State<MyApp> {
       title: 'Local Storage Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: TextTheme(),
       ),
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Example storage_view'),
+        ),
         body: StorageView(storageDriver: _mockStorageDriver),
       ),
     );

@@ -1,24 +1,3 @@
-enum ViewerFilterType {
-  key(0),
-  value(1),
-  type(2);
-
-  final int filterIndex;
-  const ViewerFilterType(this.filterIndex);
-
-  static ViewerFilterType fromIndex(int filterIndex) {
-    switch (filterIndex) {
-      case 1:
-        return ViewerFilterType.value;
-      case 2:
-        return ViewerFilterType.type;
-      case 0:
-      default:
-        return ViewerFilterType.key;
-    }
-  }
-}
-
 class StorageViewerFilter {
   const StorageViewerFilter({
     required this.type,
@@ -39,5 +18,26 @@ class StorageViewerFilter {
       type: type ?? this.type,
       asc: asc ?? this.asc,
     );
+  }
+}
+
+enum ViewerFilterType {
+  key(0),
+  value(1),
+  type(2);
+
+  final int filterIndex;
+  const ViewerFilterType(this.filterIndex);
+
+  static ViewerFilterType fromIndex(int filterIndex) {
+    switch (filterIndex) {
+      case 1:
+        return ViewerFilterType.value;
+      case 2:
+        return ViewerFilterType.type;
+      case 0:
+      default:
+        return ViewerFilterType.key;
+    }
   }
 }

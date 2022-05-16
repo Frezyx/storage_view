@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:storage_view/src/models/storage_driver.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
+import 'package:storage_view/storage_view.dart';
 
 class StorageView extends StatefulWidget {
   const StorageView({
     Key? key,
     required this.storageDriver,
+    this.theme = const StorageViewTheme(),
   }) : super(key: key);
 
+  final StorageViewTheme theme;
   final StorageDriver storageDriver;
 
   @override
@@ -28,7 +30,9 @@ class _StorageViewState extends State<StorageView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final theme = widget.theme.mergeWithFlutetrTheme(context);
     return Material(
+      color: theme.backgroundColor,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
@@ -38,10 +42,13 @@ class _StorageViewState extends State<StorageView> {
             child: DataTable(
                 columns: <DataColumn>[
                   DataColumn(
-                    label: const Text(
-                      'Key',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                    label: Container(
+                      constraints: BoxConstraints(maxWidth: size.width * 0.1),
+                      child: const Text(
+                        'Key',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     onSort: _controller.cangeFilter,
@@ -69,6 +76,12 @@ class _StorageViewState extends State<StorageView> {
                 rows: data.entries
                     .map(
                       (e) => DataRow(
+                        onLongPress: () {
+                          print('Long press');
+                        },
+                        onSelectChanged: (val) {
+                          print(val);
+                        },
                         cells: <DataCell>[
                           DataCell(Text(e.key)),
                           DataCell(
