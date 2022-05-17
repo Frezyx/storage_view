@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
 
+const _columnTitleTextStyle =
+    TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+
+const _cellTextStyle = TextStyle(color: Colors.white);
+
+const _deleteIconTheme = IconThemeData(
+  color: Colors.red,
+  size: 20,
+);
+
 class StorageViewTheme {
   const StorageViewTheme({
     this.backgroundColor = const Color(0xFF1E1F28),
-    this.cellTextStyle,
-    this.columnTitleTextStyle,
+    this.cellTextStyle = _cellTextStyle,
+    this.columnTitleTextStyle = _columnTitleTextStyle,
+    this.deleteIconTheme = _deleteIconTheme,
+    this.tableBorder,
+    this.checkboxTheme,
   });
 
   final Color backgroundColor;
   final TextStyle? cellTextStyle;
   final TextStyle? columnTitleTextStyle;
+  final IconThemeData? deleteIconTheme;
+  final TableBorder? tableBorder;
+  final CheckboxThemeData? checkboxTheme;
 
-  StorageViewTheme mergeWithFlutetrTheme(BuildContext context) {
+  factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);
     return StorageViewTheme(
-      // backgroundColor: backgroundColor ?? t.backgroundColor,
-      cellTextStyle: cellTextStyle ?? t.textTheme.bodyText1,
-      columnTitleTextStyle: columnTitleTextStyle ?? t.textTheme.headline6,
+      backgroundColor: t.backgroundColor,
+      cellTextStyle: t.textTheme.bodyText1,
+      columnTitleTextStyle: t.textTheme.headline6,
+      deleteIconTheme: t.primaryIconTheme,
     );
   }
 }
