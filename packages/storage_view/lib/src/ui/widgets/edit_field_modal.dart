@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:storage_view/src/extensions/extensions.dart';
+import 'package:storage_view/src/ui/utils/validator/validator.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -22,6 +24,7 @@ class EditFieldModal extends StatefulWidget {
 
 class _EditFieldModalState extends State<EditFieldModal> {
   final _textController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -62,48 +65,35 @@ class _EditFieldModalState extends State<EditFieldModal> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Column(
-                        children: [
-                          InfoRow(
-                            title: 'Key',
-                            value: widget.entry.key,
-                            theme: widget.theme,
-                          ),
-                          InfoRow(
-                            title: 'Value',
-                            value: widget.entry.value.toString(),
-                            theme: widget.theme,
-                          ),
-                          InfoRow(
-                            title: 'Type',
-                            value: widget.entry.value.runtimeType.toString(),
-                            theme: widget.theme,
-                          ),
-                        ],
-                      ),
+                    Text(
+                      'Entry data',
+                      style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
                     ),
+                    const SizedBox(height: 10),
+                    EntryInfo(theme: widget.theme, entry: widget.entry),
                     const SizedBox(height: 30),
                     Text(
                       'Edit value',
                       style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
                     ),
                     const SizedBox(height: 10),
-                    TextFormField(
-                      style: widget.theme.editValueTextStyle,
-                      controller: _textController,
-                      maxLines: null,
-                      minLines: 3,
-                      decoration:
-                          widget.theme.editValueInputDecoration?.copyWith(
-                        hintText: 'Value',
-                      ),
-                    ),
+                    if (widget.entry.isNum || widget.entry.isString)
+                      Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          style: widget.theme.editValueTextStyle,
+                          controller: _textController,
+                          maxLines: null,
+                          minLines: 3,
+                          validator: _getValidator(),
+                          decoration:
+                              widget.theme.editValueInputDecoration?.copyWith(
+                            hintText: 'Value',
+                          ),
+                        ),
+                      )
+                    else if (widget.entry.isBool)
+                      const Text('BOOL IN WORKNG'),
                   ],
                 ),
               ],
@@ -129,8 +119,12 @@ class _EditFieldModalState extends State<EditFieldModal> {
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      widget.onUpdated(_textController.text);
-                      Navigator.pop(context);
+                      if (_formKey.currentState?.validate() ?? false) {
+                        widget.onUpdated(
+                          _parseValueFromText(_textController.text),
+                        );
+                        Navigator.pop(context);
+                      }
                     },
                     label: const Text('Save'),
                     icon: const Icon(Icons.save),
@@ -142,5 +136,29 @@ class _EditFieldModalState extends State<EditFieldModal> {
         ),
       ),
     );
+  }
+
+  dynamic _parseValueFromText(String value) {
+    if (widget.entry.isInt) {
+      return int.tryParse(value);
+    }
+    if (widget.entry.isDouble) {
+      return double.tryParse(value);
+    }
+    return value;
+  }
+
+  String? Function(String? val)? _getValidator() {
+    final validator = Validator();
+    if (widget.entry.isInt) {
+      return validator.isInt;
+    }
+    if (widget.entry.isDouble) {
+      return validator.isDouble;
+    }
+    if (widget.entry.isString) {
+      return validator.isString;
+    }
+    return validator.isNotEmpty;
   }
 }
