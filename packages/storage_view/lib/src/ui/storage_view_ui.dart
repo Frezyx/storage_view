@@ -52,7 +52,7 @@ class _StorageViewState extends State<StorageView> {
                   Container(
                     height: 70,
                     width: double.infinity,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -60,95 +60,93 @@ class _StorageViewState extends State<StorageView> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: DataTable(
-                            checkboxHorizontalMargin: 16,
-                            border: widget.theme.tableBorder ??
-                                _getDefaultTableBorder(),
-                            columns: <DataColumn>[
-                              DataColumn(
-                                label: Container(
-                                  constraints: BoxConstraints(
-                                      maxWidth: size.width * 0.1),
-                                  child: Text(
-                                    'Key',
-                                    style: widget.theme.columnTitleTextStyle,
-                                  ),
-                                ),
-                                onSort: _controller.cangeFilter,
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Value',
+                          checkboxHorizontalMargin: 16,
+                          border: widget.theme.tableBorder ??
+                              _getDefaultTableBorder(),
+                          columns: <DataColumn>[
+                            DataColumn(
+                              label: Container(
+                                constraints:
+                                    BoxConstraints(maxWidth: size.width * 0.1),
+                                child: Text(
+                                  'Key',
                                   style: widget.theme.columnTitleTextStyle,
                                 ),
-                                onSort: _controller.cangeFilter,
                               ),
-                              DataColumn(
-                                label: Text(
-                                  'Type',
-                                  style: widget.theme.columnTitleTextStyle,
+                              onSort: _controller.cangeFilter,
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Value',
+                                style: widget.theme.columnTitleTextStyle,
+                              ),
+                              onSort: _controller.cangeFilter,
+                            ),
+                            DataColumn(
+                              label: Text(
+                                'Type',
+                                style: widget.theme.columnTitleTextStyle,
+                              ),
+                              onSort: _controller.cangeFilter,
+                            ),
+                            const DataColumn(label: Text('')),
+                          ],
+                          rows: data.entries
+                              .map(
+                                (e) => DataRow(
+                                  onLongPress: () => _showEditPreviewDialog(e),
+                                  onSelectChanged: (_) {},
+                                  cells: <DataCell>[
+                                    DataCell(
+                                      Text(
+                                        e.key,
+                                        style: widget.theme.cellTextStyle,
+                                      ),
+                                      onTap: () => _showEditPreviewDialog(e),
+                                    ),
+                                    DataCell(
+                                      Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: size.width * 0.5),
+                                        child: Text(
+                                          '${e.value}',
+                                          style: widget.theme.cellTextStyle,
+                                        ),
+                                      ),
+                                      onTap: () => _showEditPreviewDialog(e),
+                                    ),
+                                    DataCell(
+                                      Text(
+                                        '${e.value.runtimeType}',
+                                        style: widget.theme.cellTextStyle,
+                                      ),
+                                      onTap: () => _showEditPreviewDialog(e),
+                                    ),
+                                    DataCell(
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () {},
+                                            child: widget.deleteIcon ??
+                                                Icon(
+                                                  Icons.close,
+                                                  color: deleteIconTheme?.color,
+                                                  size: deleteIconTheme?.size,
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                      onTap: () {},
+                                    ),
+                                  ],
                                 ),
-                                onSort: _controller.cangeFilter,
-                              ),
-                              const DataColumn(label: Text('')),
-                            ],
-                            rows: data.entries
-                                .map(
-                                  (e) => DataRow(
-                                    onLongPress: () =>
-                                        _showEditPreviewDialog(e),
-                                    onSelectChanged: (_) {},
-                                    cells: <DataCell>[
-                                      DataCell(
-                                        Text(
-                                          e.key,
-                                          style: widget.theme.cellTextStyle,
-                                        ),
-                                        onTap: () => _showEditPreviewDialog(e),
-                                      ),
-                                      DataCell(
-                                        Container(
-                                          constraints: BoxConstraints(
-                                              maxWidth: size.width * 0.5),
-                                          child: Text(
-                                            '${e.value}',
-                                            style: widget.theme.cellTextStyle,
-                                          ),
-                                        ),
-                                        onTap: () => _showEditPreviewDialog(e),
-                                      ),
-                                      DataCell(
-                                        Text(
-                                          '${e.value.runtimeType}',
-                                          style: widget.theme.cellTextStyle,
-                                        ),
-                                        onTap: () => _showEditPreviewDialog(e),
-                                      ),
-                                      DataCell(
-                                        Row(
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () {},
-                                              child: widget.deleteIcon ??
-                                                  Icon(
-                                                    Icons.close,
-                                                    color:
-                                                        deleteIconTheme?.color,
-                                                    size: deleteIconTheme?.size,
-                                                  ),
-                                            )
-                                          ],
-                                        ),
-                                        onTap: () {},
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                .toList()),
+                              )
+                              .toList(),
+                        ),
                       ),
                     ),
                   ),
@@ -167,6 +165,8 @@ class _StorageViewState extends State<StorageView> {
       builder: (context) => EditFieldModal(
         theme: widget.theme,
         entry: e,
+        onDeleted: () => _controller.delete(e.key),
+        onUpdated: (value) => _controller.update(e.key, value),
       ),
     );
   }
