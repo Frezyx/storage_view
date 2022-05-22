@@ -10,6 +10,30 @@ const _deleteIconTheme = IconThemeData(
   size: 20,
 );
 
+const _textFieldBorder =
+    OutlineInputBorder(borderSide: BorderSide(color: Colors.white));
+const _textFieldErrorBorder =
+    OutlineInputBorder(borderSide: BorderSide(color: Colors.red));
+
+const _editValueInputDecoration = InputDecoration(
+  hintStyle: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  ),
+  floatingLabelStyle: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+  ),
+  filled: true,
+  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+  floatingLabelBehavior: FloatingLabelBehavior.never,
+  enabledBorder: _textFieldBorder,
+  focusedBorder: _textFieldBorder,
+  border: _textFieldBorder,
+  errorBorder: _textFieldErrorBorder,
+);
+
 class StorageViewTheme {
   const StorageViewTheme({
     this.backgroundColor = const Color(0xFF1E1F28),
@@ -18,6 +42,8 @@ class StorageViewTheme {
     this.deleteIconTheme = _deleteIconTheme,
     this.tableBorder,
     this.checkboxTheme,
+    this.editValueInputDecoration = _editValueInputDecoration,
+    this.editValueTextStyle = const TextStyle(color: Colors.white),
   });
 
   final Color backgroundColor;
@@ -26,6 +52,8 @@ class StorageViewTheme {
   final IconThemeData? deleteIconTheme;
   final TableBorder? tableBorder;
   final CheckboxThemeData? checkboxTheme;
+  final InputDecoration? editValueInputDecoration;
+  final TextStyle? editValueTextStyle;
 
   factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);
@@ -34,6 +62,7 @@ class StorageViewTheme {
       cellTextStyle: t.textTheme.bodyText1,
       columnTitleTextStyle: t.textTheme.headline6,
       deleteIconTheme: t.primaryIconTheme,
+      editValueTextStyle: t.textTheme.bodyText1,
     );
   }
 }
