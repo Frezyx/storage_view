@@ -49,17 +49,16 @@ class _StorageViewState extends State<StorageView> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    height: 70,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(),
-                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: DataTable(
+                          showCheckboxColumn: true,
+                          onSelectAll: (selected) {
+                            _controller.toggleAllKeys(selected);
+                          },
                           checkboxHorizontalMargin: 16,
                           border: widget.theme.tableBorder ??
                               _getDefaultTableBorder(),
@@ -94,8 +93,11 @@ class _StorageViewState extends State<StorageView> {
                           rows: data.entries
                               .map(
                                 (e) => DataRow(
+                                  selected:
+                                      _controller.selectedKeys.contains(e.key),
                                   onLongPress: () => _showEditPreviewDialog(e),
-                                  onSelectChanged: (_) {},
+                                  onSelectChanged: (_) =>
+                                      _controller.setKeySelected(e.key),
                                   cells: <DataCell>[
                                     DataCell(
                                       Text(

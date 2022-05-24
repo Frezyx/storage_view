@@ -9,6 +9,9 @@ class StorageViewerController extends ChangeNotifier {
   var _keys = <String>{};
   Set<String> get keys => _keys;
 
+  var _selectedKeys = <String>{};
+  Set<String> get selectedKeys => _selectedKeys;
+
   final _data = <String, dynamic>{};
   Map<String, dynamic> get data => _data;
 
@@ -32,5 +35,23 @@ class StorageViewerController extends ChangeNotifier {
   Future<void> update(String key, dynamic value) async {
     await _storage.write(key: key, value: value);
     await load();
+  }
+
+  void toggleAllKeys(bool? selected) {
+    if (selected ?? true) {
+      _selectedKeys = _keys;
+      return;
+    }
+    _selectedKeys.clear();
+    notifyListeners();
+  }
+
+  void setKeySelected(String key) {
+    if (_selectedKeys.contains(key)) {
+      _selectedKeys.remove(key);
+      return;
+    }
+    _selectedKeys.add(key);
+    notifyListeners();
   }
 }
