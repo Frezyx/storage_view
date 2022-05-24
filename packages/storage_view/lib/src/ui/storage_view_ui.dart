@@ -148,8 +148,16 @@ class _StorageViewState extends State<StorageView> {
     );
   }
 
-  void _deleteByKey(MapEntry<String, dynamic> e) {
-    _controller.delete(e.key);
+  Future<void> _deleteByKey(MapEntry<String, dynamic> e) async {
+    final confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => DeleteConfirmationModal(
+        theme: widget.theme,
+      ),
+    );
+    if (confirmDelete ?? false) {
+      _controller.delete(e.key);
+    }
   }
 
   void _showEditPreviewDialog(MapEntry<String, dynamic> e) {
