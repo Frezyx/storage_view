@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/extensions/extensions.dart';
 import 'package:storage_view/src/ui/utils/validator/validator.dart';
+import 'package:storage_view/src/ui/widgets/modals/edit/entry_info.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -104,10 +105,7 @@ class _EditFieldModalState extends State<EditFieldModal> {
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      widget.onDeleted();
-                      Navigator.pop(context);
-                    },
+                    onPressed: _delete,
                     label: const Text('Delete'),
                     icon: const Icon(Icons.close),
                     style: ButtonStyle(
@@ -136,6 +134,20 @@ class _EditFieldModalState extends State<EditFieldModal> {
         ),
       ),
     );
+  }
+
+  Future<void> _delete() async {
+    final confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => DeleteConfirmationModal(
+        theme: widget.theme,
+      ),
+    );
+    if (confirmDelete ?? false) {
+      widget.onDeleted();
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    }
   }
 
   dynamic _parseValueFromText(String value) {

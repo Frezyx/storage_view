@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
-import 'package:storage_view/src/ui/widgets/edit_field_modal.dart';
+import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
 class StorageView extends StatefulWidget {
@@ -123,24 +123,13 @@ class _StorageViewState extends State<StorageView> {
                                       onTap: () => _showEditPreviewDialog(e),
                                     ),
                                     DataCell(
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () {},
-                                            child: widget.deleteIcon ??
-                                                Icon(
-                                                  Icons.close,
-                                                  color: deleteIconTheme?.color,
-                                                  size: deleteIconTheme?.size,
-                                                ),
-                                          )
-                                        ],
-                                      ),
-                                      onTap: () {},
+                                      widget.deleteIcon ??
+                                          Icon(
+                                            Icons.close,
+                                            color: deleteIconTheme?.color,
+                                            size: deleteIconTheme?.size,
+                                          ),
+                                      onTap: () => _deleteByKey(e),
                                     ),
                                   ],
                                 ),
@@ -157,6 +146,10 @@ class _StorageViewState extends State<StorageView> {
         ),
       ),
     );
+  }
+
+  void _deleteByKey(MapEntry<String, dynamic> e) {
+    _controller.delete(e.key);
   }
 
   void _showEditPreviewDialog(MapEntry<String, dynamic> e) {

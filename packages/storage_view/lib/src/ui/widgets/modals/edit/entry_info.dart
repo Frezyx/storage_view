@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:storage_view/src/ui/widgets/widgets.dart';
+import 'package:storage_view/src/ui/widgets/modals/edit/info_row.dart';
 import 'package:storage_view/storage_view.dart';
 
 class EntryInfo extends StatelessWidget {
