@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:storage_view/src/extensions/extensions.dart';
 import 'package:storage_view/src/ui/utils/validator/validator.dart';
 import 'package:storage_view/src/ui/widgets/modals/edit/entry_info.dart';
+import 'package:storage_view/src/ui/widgets/modals/edit/typed/typed.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -26,10 +27,14 @@ class EditFieldModal extends StatefulWidget {
 class _EditFieldModalState extends State<EditFieldModal> {
   final _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  var _boolValueUpdated = false;
 
   @override
   void initState() {
     _textController.text = widget.entry.value.toString();
+    if (widget.entry.isBool) {
+      _boolValueUpdated = widget.entry.value == 'true';
+    }
     super.initState();
   }
 
@@ -97,7 +102,9 @@ class _EditFieldModalState extends State<EditFieldModal> {
                       BoolValueSelector(
                         value: widget.entry.value,
                         theme: widget.theme,
-                        onChange: (val) {},
+                        onChange: (val) {
+                          _boolValueUpdated = val;
+                        },
                       ),
                   ],
                 ),
@@ -121,6 +128,12 @@ class _EditFieldModalState extends State<EditFieldModal> {
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: () {
+                      if (widget.entry.isBool) {
+                        widget.onUpdated(_boolValueUpdated);
+                        Navigator.pop(context);
+                        return;
+                      }
+
                       if (_formKey.currentState?.validate() ?? false) {
                         widget.onUpdated(
                           _parseValueFromText(_textController.text),
@@ -176,96 +189,5 @@ class _EditFieldModalState extends State<EditFieldModal> {
       return validator.isString;
     }
     return validator.isNotEmpty;
-  }
-}
-
-class BoolValueSelector extends StatefulWidget {
-  const BoolValueSelector({
-    Key? key,
-    required this.value,
-    required this.onChange,
-    required this.theme,
-  }) : super(key: key);
-
-  final bool value;
-  final ValueChanged<bool> onChange;
-  final StorageViewTheme theme;
-
-  @override
-  State<BoolValueSelector> createState() => _BoolValueSelectorState();
-}
-
-class _BoolValueSelectorState extends State<BoolValueSelector> {
-  var _value = false;
-
-  @override
-  void initState() {
-    _value = widget.value;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BoolSelectorItem(
-          title: 'true',
-          theme: widget.theme,
-          onTap: () => _onChange(true),
-          selected: _value == true,
-        ),
-        const SizedBox(height: 10),
-        BoolSelectorItem(
-          title: 'false',
-          theme: widget.theme,
-          onTap: () => _onChange(false),
-          selected: _value == false,
-        ),
-      ],
-    );
-  }
-
-  void _onChange(bool val) {
-    widget.onChange(val);
-    setState(() => _value = val);
-  }
-}
-
-class BoolSelectorItem extends StatelessWidget {
-  const BoolSelectorItem({
-    Key? key,
-    required this.theme,
-    required this.onTap,
-    required this.title,
-    required this.selected,
-  }) : super(key: key);
-
-  final StorageViewTheme theme;
-  final VoidCallback onTap;
-  final String title;
-  final bool selected;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Theme.of(context);
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-        decoration: BoxDecoration(
-          color: theme.backgroundColor,
-          border: Border.all(color: !selected ? Colors.white : t.primaryColor),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: !selected ? Colors.white : t.primaryColor,
-            fontSize: 18,
-          ),
-        ),
-      ),
-    );
   }
 }
