@@ -120,11 +120,17 @@ class _StorageTableState extends State<StorageTable> {
   void _showEditPreviewDialog(MapEntry<String, dynamic> e) {
     showDialog(
       context: context,
-      builder: (context) => EditFieldModal(
-        theme: widget.theme,
-        entry: e,
-        onDeleted: () => widget.controller.delete(e.key),
-        onUpdated: (value) => widget.controller.update(e.key, value),
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: SingleChildScrollView(
+          child: EditFieldForm(
+            width: double.infinity,
+            theme: widget.theme,
+            entry: e,
+            onDeleted: () => widget.controller.delete(e.key),
+            onUpdated: (value) => widget.controller.update(e.key, value),
+          ),
+        ),
       ),
     );
   }

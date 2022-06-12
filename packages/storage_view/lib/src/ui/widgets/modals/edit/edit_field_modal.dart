@@ -6,25 +6,29 @@ import 'package:storage_view/src/ui/widgets/modals/edit/typed/typed.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
-class EditFieldModal extends StatefulWidget {
-  const EditFieldModal({
+class EditFieldForm extends StatefulWidget {
+  const EditFieldForm({
     Key? key,
     required this.theme,
     required this.entry,
     required this.onDeleted,
     required this.onUpdated,
+    this.margin,
+    this.width,
   }) : super(key: key);
 
   final StorageViewTheme theme;
   final MapEntry<String, dynamic> entry;
   final VoidCallback onDeleted;
   final Function(dynamic value) onUpdated;
+  final EdgeInsets? margin;
+  final double? width;
 
   @override
-  State<EditFieldModal> createState() => _EditFieldModalState();
+  State<EditFieldForm> createState() => _EditFieldFormState();
 }
 
-class _EditFieldModalState extends State<EditFieldModal> {
+class _EditFieldFormState extends State<EditFieldForm> {
   final _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var _boolValueUpdated = false;
@@ -41,9 +45,9 @@ class _EditFieldModalState extends State<EditFieldModal> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(30),
+      padding: widget.margin ?? const EdgeInsets.all(30),
       child: Container(
-        width: double.infinity,
+        width: widget.width,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: widget.theme.backgroundColor,
@@ -53,100 +57,99 @@ class _EditFieldModalState extends State<EditFieldModal> {
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Edit storage entry',
-                      style: widget.theme.cellTextStyle?.copyWith(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Edit storage entry',
+                    style: widget.theme.cellTextStyle?.copyWith(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 30),
-                    Text(
-                      'Entry data',
-                      style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
-                    ),
-                    const SizedBox(height: 10),
-                    EntryInfo(theme: widget.theme, entry: widget.entry),
-                    const SizedBox(height: 30),
-                    Text(
-                      'Edit value',
-                      style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
-                    ),
-                    const SizedBox(height: 10),
-                    if (widget.entry.isNum || widget.entry.isString)
-                      Form(
-                        key: _formKey,
-                        child: TextFormField(
-                          style: widget.theme.editValueTextStyle,
-                          controller: _textController,
-                          maxLines: null,
-                          minLines: 3,
-                          validator: _getValidator(),
-                          decoration:
-                              widget.theme.editValueInputDecoration?.copyWith(
-                            hintText: 'Value',
-                          ),
+                  ),
+                  const SizedBox(height: 30),
+                  Text(
+                    'Entry data',
+                    style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(height: 10),
+                  EntryInfo(theme: widget.theme, entry: widget.entry),
+                  const SizedBox(height: 30),
+                  Text(
+                    'Edit value',
+                    style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(height: 10),
+                  if (widget.entry.isNum || widget.entry.isString)
+                    Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        style: widget.theme.editValueTextStyle,
+                        controller: _textController,
+                        maxLines: null,
+                        minLines: 3,
+                        validator: _getValidator(),
+                        decoration:
+                            widget.theme.editValueInputDecoration?.copyWith(
+                          hintText: 'Value',
                         ),
-                      )
-                    else if (widget.entry.isBool)
-                      BoolValueSelector(
-                        value: widget.entry.value,
-                        theme: widget.theme,
-                        onChange: (val) {
-                          _boolValueUpdated = val;
-                        },
                       ),
+                    )
+                  else if (widget.entry.isBool)
+                    BoolValueSelector(
+                      value: widget.entry.value,
+                      theme: widget.theme,
+                      onChange: (val) {
+                        _boolValueUpdated = val;
+                      },
+                    ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: _delete,
+                        label: const Text('Delete'),
+                        icon: const Icon(Icons.close),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          if (widget.entry.isBool) {
+                            widget.onUpdated(_boolValueUpdated);
+                            Navigator.pop(context);
+                            return;
+                          }
+
+                          if (_formKey.currentState?.validate() ?? false) {
+                            widget.onUpdated(
+                              _parseValueFromText(_textController.text),
+                            );
+                            Navigator.pop(context);
+                          }
+                        },
+                        label: const Text('Save'),
+                        icon: const Icon(Icons.save),
+                      ),
+                    ),
                   ],
                 ),
-              ],
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _delete,
-                    label: const Text('Delete'),
-                    icon: const Icon(Icons.close),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      if (widget.entry.isBool) {
-                        widget.onUpdated(_boolValueUpdated);
-                        Navigator.pop(context);
-                        return;
-                      }
-
-                      if (_formKey.currentState?.validate() ?? false) {
-                        widget.onUpdated(
-                          _parseValueFromText(_textController.text),
-                        );
-                        Navigator.pop(context);
-                      }
-                    },
-                    label: const Text('Save'),
-                    icon: const Icon(Icons.save),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

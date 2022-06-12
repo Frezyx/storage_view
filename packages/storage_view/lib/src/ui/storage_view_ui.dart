@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
+import 'package:storage_view/src/ui/widgets/responsive/responsive_builder.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -47,12 +48,32 @@ class _StorageViewState extends State<StorageView> {
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: StorageTable(
-                        theme: widget.theme,
-                        controller: _controller,
-                        storageEnties: storageEnties,
+                    child: ResponsiveBuilder(
+                      largeScreen: Row(
+                        children: [
+                          if (storageEnties.entries.isNotEmpty)
+                            Expanded(
+                              child: EditFieldForm(
+                                theme: widget.theme,
+                                entry: storageEnties.entries.first,
+                                onDeleted: () {},
+                                onUpdated: (_) {},
+                              ),
+                            ),
+                          StorageTable(
+                            theme: widget.theme,
+                            controller: _controller,
+                            storageEnties: storageEnties,
+                          ),
+                        ],
+                      ),
+                      mediumScreen: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: StorageTable(
+                          theme: widget.theme,
+                          controller: _controller,
+                          storageEnties: storageEnties,
+                        ),
                       ),
                     ),
                   ),
