@@ -44,6 +44,7 @@ class StorageViewTheme {
     this.checkboxTheme,
     this.editValueInputDecoration = _editValueInputDecoration,
     this.editValueTextStyle = const TextStyle(color: Colors.white),
+    this.deleteIcon,
   });
 
   final Color backgroundColor;
@@ -54,6 +55,7 @@ class StorageViewTheme {
   final CheckboxThemeData? checkboxTheme;
   final InputDecoration? editValueInputDecoration;
   final TextStyle? editValueTextStyle;
+  final Widget? deleteIcon;
 
   factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);
