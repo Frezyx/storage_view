@@ -51,11 +51,11 @@ class _StorageViewState extends State<StorageView> {
                     child: ResponsiveBuilder(
                       largeScreen: (context) => Row(
                         children: [
-                          if (storageEnties.entries.isNotEmpty)
+                          if (_controller.selectedEntry != null)
                             Expanded(
                               child: EditFieldForm(
                                 theme: widget.theme,
-                                entry: storageEnties.entries.first,
+                                entry: _controller.selectedEntry!,
                                 onDeleted: () {},
                                 onUpdated: (_) {},
                               ),

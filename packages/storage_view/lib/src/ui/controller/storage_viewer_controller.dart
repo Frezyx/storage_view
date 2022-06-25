@@ -7,13 +7,20 @@ class StorageViewerController extends ChangeNotifier {
   final StorageDriver _storage;
 
   var _keys = <String>{};
-  Set<String> get keys => _keys;
+  final _selectedKeys = <String>{};
+  MapEntry<String, dynamic>? _selectedEntry;
 
-  var _selectedKeys = <String>{};
+  Set<String> get keys => _keys;
   Set<String> get selectedKeys => _selectedKeys;
+  MapEntry<String, dynamic>? get selectedEntry => _selectedEntry;
 
   final _data = <String, dynamic>{};
   Map<String, dynamic> get data => _data;
+
+  void selectEntry(MapEntry<String, dynamic> entry) {
+    _selectedEntry = entry;
+    notifyListeners();
+  }
 
   Future<void> load() async {
     _keys = await _storage.getKeys();
@@ -21,6 +28,9 @@ class StorageViewerController extends ChangeNotifier {
     for (final key in keys) {
       final value = await _storage.read(key);
       _data[key] = value;
+    }
+    if (_data.isNotEmpty) {
+      _selectedEntry = _data.entries.first;
     }
     notifyListeners();
   }

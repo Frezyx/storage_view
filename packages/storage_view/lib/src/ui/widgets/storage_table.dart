@@ -123,6 +123,7 @@ class _StorageTableState extends State<StorageTable> {
       _showEditDialog(e);
       return;
     }
+    widget.controller.selectEntry(e);
   }
 
   void _showEditDialog(MapEntry<String, dynamic> e) {
