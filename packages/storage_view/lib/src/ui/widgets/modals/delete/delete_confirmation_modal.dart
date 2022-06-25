@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:storage_view/src/ui/utils/utils.dart';
 import 'package:storage_view/storage_view.dart';
 
 class DeleteConfirmationModal extends StatelessWidget {
@@ -11,8 +12,11 @@ class DeleteConfirmationModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = ResponsiveHelper.of(context).isSmallScreen;
+    final buttonHeight = isSmallScreen ? 30.0 : 50.0;
     return Center(
       child: Container(
+        width: isSmallScreen ? null : 370,
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -34,23 +38,29 @@ class DeleteConfirmationModal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                    child: const Text('No'),
+                  child: SizedBox(
+                    height: buttonHeight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                      child: const Text('No'),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                  child: SizedBox(
+                    height: buttonHeight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                      ),
+                      child: const Text('Yes'),
                     ),
-                    child: const Text('Yes'),
                   ),
                 ),
               ],
