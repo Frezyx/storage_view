@@ -53,11 +53,20 @@ class _StorageViewState extends State<StorageView> {
                         children: [
                           if (_controller.selectedEntry != null)
                             Expanded(
+                              flex: 1,
                               child: EditFieldForm(
                                 theme: widget.theme,
                                 entry: _controller.selectedEntry!,
-                                onDeleted: () {},
-                                onUpdated: (_) {},
+                                onDeleted: () {
+                                  _controller
+                                      .delete(_controller.selectedEntry!.key);
+                                },
+                                onUpdated: (value) {
+                                  _controller.update(
+                                    _controller.selectedEntry!.key,
+                                    value,
+                                  );
+                                },
                               ),
                             ),
                           StorageTable(

@@ -154,7 +154,7 @@ class _EditFieldFormState extends State<EditFieldForm> {
   void _onSaveTap() {
     if (widget.entry.isBool) {
       widget.onUpdated(_boolValueUpdated);
-      Navigator.pop(context);
+
       return;
     }
 
@@ -162,7 +162,6 @@ class _EditFieldFormState extends State<EditFieldForm> {
       widget.onUpdated(
         _parseValueFromText(_textController.text),
       );
-      Navigator.pop(context);
     }
   }
 
@@ -175,8 +174,6 @@ class _EditFieldFormState extends State<EditFieldForm> {
     );
     if (confirmDelete ?? false) {
       widget.onDeleted();
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
     }
   }
 

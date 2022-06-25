@@ -136,8 +136,14 @@ class _StorageTableState extends State<StorageTable> {
             width: double.infinity,
             theme: widget.theme,
             entry: e,
-            onDeleted: () => widget.controller.delete(e.key),
-            onUpdated: (value) => widget.controller.update(e.key, value),
+            onDeleted: () {
+              widget.controller.delete(e.key);
+              Navigator.pop(context);
+            },
+            onUpdated: (value) {
+              widget.controller.update(e.key, value);
+              Navigator.pop(context);
+            },
           ),
         ),
       ),
