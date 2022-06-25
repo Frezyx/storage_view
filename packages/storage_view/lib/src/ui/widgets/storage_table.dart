@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
+import 'package:storage_view/src/ui/utils/utils.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -62,7 +63,7 @@ class _StorageTableState extends State<StorageTable> {
           .map(
             (e) => DataRow(
               selected: widget.controller.selectedKeys.contains(e.key),
-              onLongPress: () => _showEditPreviewDialog(e),
+              onLongPress: () => _onCeilTap(e),
               onSelectChanged: (_) => widget.controller.setKeySelected(e.key),
               cells: <DataCell>[
                 DataCell(
@@ -70,7 +71,7 @@ class _StorageTableState extends State<StorageTable> {
                     e.key,
                     style: widget.theme.cellTextStyle,
                   ),
-                  onTap: () => _showEditPreviewDialog(e),
+                  onTap: () => _onCeilTap(e),
                 ),
                 DataCell(
                   Container(
@@ -80,14 +81,14 @@ class _StorageTableState extends State<StorageTable> {
                       style: widget.theme.cellTextStyle,
                     ),
                   ),
-                  onTap: () => _showEditPreviewDialog(e),
+                  onTap: () => _onCeilTap(e),
                 ),
                 DataCell(
                   Text(
                     '${e.value.runtimeType}',
                     style: widget.theme.cellTextStyle,
                   ),
-                  onTap: () => _showEditPreviewDialog(e),
+                  onTap: () => _onCeilTap(e),
                 ),
                 DataCell(
                   widget.theme.deleteIcon ??
@@ -117,7 +118,14 @@ class _StorageTableState extends State<StorageTable> {
     }
   }
 
-  void _showEditPreviewDialog(MapEntry<String, dynamic> e) {
+  void _onCeilTap(MapEntry<String, dynamic> e) {
+    if (ResponsiveHelper.of(context).isSmallScreen) {
+      _showEditDialog(e);
+      return;
+    }
+  }
+
+  void _showEditDialog(MapEntry<String, dynamic> e) {
     showDialog(
       context: context,
       builder: (context) => Dialog(

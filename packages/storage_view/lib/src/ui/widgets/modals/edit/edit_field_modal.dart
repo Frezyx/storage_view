@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/extensions/extensions.dart';
-import 'package:storage_view/src/ui/utils/validator/validator.dart';
+import 'package:storage_view/src/ui/utils/utils.dart';
 import 'package:storage_view/src/ui/widgets/modals/edit/entry_info.dart';
 import 'package:storage_view/src/ui/widgets/modals/edit/typed/typed.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
@@ -44,6 +44,8 @@ class _EditFieldFormState extends State<EditFieldForm> {
 
   @override
   Widget build(BuildContext context) {
+    final double? buttonHeight =
+        ResponsiveHelper.of(context).isSmallScreen ? null : 60;
     return Padding(
       padding: widget.margin ?? const EdgeInsets.all(30),
       child: Container(
@@ -115,35 +117,28 @@ class _EditFieldFormState extends State<EditFieldForm> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: _delete,
-                        label: const Text('Delete'),
-                        icon: const Icon(Icons.close),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
+                      child: SizedBox(
+                        height: buttonHeight,
+                        child: ElevatedButton.icon(
+                          onPressed: _onDeleteTap,
+                          label: const Text('Delete'),
+                          icon: const Icon(Icons.close),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red),
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          if (widget.entry.isBool) {
-                            widget.onUpdated(_boolValueUpdated);
-                            Navigator.pop(context);
-                            return;
-                          }
-
-                          if (_formKey.currentState?.validate() ?? false) {
-                            widget.onUpdated(
-                              _parseValueFromText(_textController.text),
-                            );
-                            Navigator.pop(context);
-                          }
-                        },
-                        label: const Text('Save'),
-                        icon: const Icon(Icons.save),
+                      child: SizedBox(
+                        height: buttonHeight,
+                        child: ElevatedButton.icon(
+                          onPressed: _onSaveTap,
+                          label: const Text('Save'),
+                          icon: const Icon(Icons.save),
+                        ),
                       ),
                     ),
                   ],
@@ -156,7 +151,22 @@ class _EditFieldFormState extends State<EditFieldForm> {
     );
   }
 
-  Future<void> _delete() async {
+  void _onSaveTap() {
+    if (widget.entry.isBool) {
+      widget.onUpdated(_boolValueUpdated);
+      Navigator.pop(context);
+      return;
+    }
+
+    if (_formKey.currentState?.validate() ?? false) {
+      widget.onUpdated(
+        _parseValueFromText(_textController.text),
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _onDeleteTap() async {
     final confirmDelete = await showDialog<bool>(
       context: context,
       builder: (context) => DeleteConfirmationModal(
