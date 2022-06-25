@@ -9,9 +9,9 @@ class ResponsiveBuilder extends StatelessWidget {
     this.smallScreen,
   }) : super(key: key);
 
-  final Widget largeScreen;
-  final Widget? mediumScreen;
-  final Widget? smallScreen;
+  final WidgetBuilder largeScreen;
+  final WidgetBuilder? mediumScreen;
+  final WidgetBuilder? smallScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,21 @@ class ResponsiveBuilder extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (r.isLargeScreen) {
-          return largeScreen;
+          return largeScreen.call(context);
         }
         if (r.isMediumScreen) {
-          return mediumScreen ?? largeScreen;
+          if (mediumScreen != null) {
+            return mediumScreen!.call(context);
+          }
+          return largeScreen.call(context);
         }
-        return smallScreen ?? mediumScreen ?? largeScreen;
+        if (smallScreen != null) {
+          return smallScreen!.call(context);
+        }
+        if (mediumScreen != null) {
+          return mediumScreen!.call(context);
+        }
+        return largeScreen.call(context);
       },
     );
   }

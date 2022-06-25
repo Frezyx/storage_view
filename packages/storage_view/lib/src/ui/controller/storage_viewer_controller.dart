@@ -39,7 +39,8 @@ class StorageViewerController extends ChangeNotifier {
 
   void toggleAllKeys(bool? selected) {
     if (selected ?? true) {
-      _selectedKeys = _keys;
+      _selectedKeys.addAll(_keys);
+      notifyListeners();
       return;
     }
     _selectedKeys.clear();
@@ -49,6 +50,7 @@ class StorageViewerController extends ChangeNotifier {
   void setKeySelected(String key) {
     if (_selectedKeys.contains(key)) {
       _selectedKeys.remove(key);
+      notifyListeners();
       return;
     }
     _selectedKeys.add(key);

@@ -49,7 +49,7 @@ class _StorageViewState extends State<StorageView> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: ResponsiveBuilder(
-                      largeScreen: Row(
+                      largeScreen: (context) => Row(
                         children: [
                           if (storageEnties.entries.isNotEmpty)
                             Expanded(
@@ -67,7 +67,7 @@ class _StorageViewState extends State<StorageView> {
                           ),
                         ],
                       ),
-                      mediumScreen: SingleChildScrollView(
+                      mediumScreen: (context) => SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: StorageTable(
                           theme: widget.theme,
