@@ -34,12 +34,12 @@ class _EditFieldFormState extends State<EditFieldForm> {
   var _boolValueUpdated = false;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     _textController.text = widget.entry.value.toString();
     if (widget.entry.isBool) {
       _boolValueUpdated = widget.entry.value == 'true';
     }
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
