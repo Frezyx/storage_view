@@ -14,31 +14,20 @@ class EntryInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Column(
-        children: [
-          InfoRow(
-            title: 'Key',
-            value: entry.key,
-            theme: theme,
-          ),
-          InfoRow(
-            title: 'Value',
-            value: entry.value.toString(),
-            theme: theme,
-          ),
-          InfoRow(
-            title: 'Type',
-            value: entry.value.runtimeType.toString(),
-            theme: theme,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        InfoRow(
+          title: 'Key',
+          value: entry.key,
+          theme: theme,
+        ),
+        const SizedBox(height: 10),
+        InfoRow(
+          title: 'Value',
+          value: entry.value.toString(),
+          theme: theme,
+        ),
+      ],
     );
   }
 }

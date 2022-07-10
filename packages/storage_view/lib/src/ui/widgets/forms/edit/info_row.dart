@@ -15,27 +15,34 @@ class InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: theme.cellTextStyle?.copyWith(fontSize: 18),
-            ),
-            const SizedBox(width: 20),
-            Flexible(
-              child: Text(
-                value,
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                title,
                 style: theme.cellTextStyle?.copyWith(fontSize: 18),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-      ],
+              const SizedBox(width: 20),
+              Flexible(
+                child: Text(
+                  value,
+                  style: theme.cellTextStyle?.copyWith(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }

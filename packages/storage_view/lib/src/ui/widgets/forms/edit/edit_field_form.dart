@@ -76,7 +76,7 @@ class _EditFieldFormState extends State<EditFieldForm> {
                   ),
                   const SizedBox(height: 30),
                   Text(
-                    'Entry data',
+                    'Entry data (${widget.entry.value.runtimeType.toString()})',
                     style: widget.theme.cellTextStyle?.copyWith(fontSize: 20),
                   ),
                   const SizedBox(height: 10),
