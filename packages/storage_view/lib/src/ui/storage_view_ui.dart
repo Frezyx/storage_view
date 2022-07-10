@@ -64,18 +64,10 @@ class _StorageViewState extends State<StorageView> {
                     largeScreen: (context) => Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.all(20),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: widget.theme.cardColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: StorageTable(
-                            theme: widget.theme,
-                            controller: _controller,
-                            storageEnties: storageEnties,
-                          ),
+                        StorageTable(
+                          theme: widget.theme,
+                          controller: _controller,
+                          storageEnties: storageEnties,
                         ),
                         if (_controller.selectedEntry != null)
                           Expanded(
@@ -100,14 +92,10 @@ class _StorageViewState extends State<StorageView> {
                     ),
                     smallScreen: (context) => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0)
-                            .copyWith(top: 20),
-                        child: StorageTable(
-                          theme: widget.theme,
-                          controller: _controller,
-                          storageEnties: storageEnties,
-                        ),
+                      child: StorageTable(
+                        theme: widget.theme,
+                        controller: _controller,
+                        storageEnties: storageEnties,
                       ),
                     ),
                   ),

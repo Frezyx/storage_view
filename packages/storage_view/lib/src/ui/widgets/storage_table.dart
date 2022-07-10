@@ -26,84 +26,92 @@ class _StorageTableState extends State<StorageTable> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final deleteIconTheme = widget.theme.deleteIconTheme;
-    return DataTable(
-      showCheckboxColumn: true,
-      onSelectAll: (selected) {
-        widget.controller.toggleAllKeys(selected);
-      },
-      checkboxHorizontalMargin: 16,
-      border: widget.theme.tableBorder ?? _getDefaultTableBorder(),
-      columns: <DataColumn>[
-        DataColumn(
-          label: Container(
-            constraints: BoxConstraints(maxWidth: size.width * 0.1),
-            child: Text(
-              'Key',
+    return Container(
+      margin: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: widget.theme.cardColor,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: DataTable(
+        showCheckboxColumn: true,
+        onSelectAll: (selected) {
+          widget.controller.toggleAllKeys(selected);
+        },
+        checkboxHorizontalMargin: 16,
+        border: widget.theme.tableBorder ?? _getDefaultTableBorder(),
+        columns: <DataColumn>[
+          DataColumn(
+            label: Container(
+              constraints: BoxConstraints(maxWidth: size.width * 0.1),
+              child: Text(
+                'Key',
+                style: widget.theme.columnTitleTextStyle,
+              ),
+            ),
+            onSort: widget.controller.cangeFilter,
+          ),
+          DataColumn(
+            label: Text(
+              'Value',
               style: widget.theme.columnTitleTextStyle,
             ),
+            onSort: widget.controller.cangeFilter,
           ),
-          onSort: widget.controller.cangeFilter,
-        ),
-        DataColumn(
-          label: Text(
-            'Value',
-            style: widget.theme.columnTitleTextStyle,
+          DataColumn(
+            label: Text(
+              'Type',
+              style: widget.theme.columnTitleTextStyle,
+            ),
+            onSort: widget.controller.cangeFilter,
           ),
-          onSort: widget.controller.cangeFilter,
-        ),
-        DataColumn(
-          label: Text(
-            'Type',
-            style: widget.theme.columnTitleTextStyle,
-          ),
-          onSort: widget.controller.cangeFilter,
-        ),
-        const DataColumn(label: Text('')),
-      ],
-      rows: widget.storageEnties.entries
-          .map(
-            (e) => DataRow(
-              selected: widget.controller.selectedKeys.contains(e.key),
-              onLongPress: () => _onCeilTap(e),
-              onSelectChanged: (_) => widget.controller.setKeySelected(e.key),
-              cells: <DataCell>[
-                DataCell(
-                  Text(
-                    e.key,
-                    style: widget.theme.cellTextStyle,
-                  ),
-                  onTap: () => _onCeilTap(e),
-                ),
-                DataCell(
-                  Container(
-                    constraints: BoxConstraints(maxWidth: size.width * 0.5),
-                    child: Text(
-                      '${e.value}',
+          const DataColumn(label: Text('')),
+        ],
+        rows: widget.storageEnties.entries
+            .map(
+              (e) => DataRow(
+                selected: widget.controller.selectedKeys.contains(e.key),
+                onLongPress: () => _onCeilTap(e),
+                onSelectChanged: (_) => widget.controller.setKeySelected(e.key),
+                cells: <DataCell>[
+                  DataCell(
+                    Text(
+                      e.key,
                       style: widget.theme.cellTextStyle,
                     ),
+                    onTap: () => _onCeilTap(e),
                   ),
-                  onTap: () => _onCeilTap(e),
-                ),
-                DataCell(
-                  Text(
-                    '${e.value.runtimeType}',
-                    style: widget.theme.cellTextStyle,
-                  ),
-                  onTap: () => _onCeilTap(e),
-                ),
-                DataCell(
-                  widget.theme.deleteIcon ??
-                      Icon(
-                        Icons.close,
-                        color: deleteIconTheme?.color,
-                        size: deleteIconTheme?.size,
+                  DataCell(
+                    Container(
+                      constraints: BoxConstraints(maxWidth: size.width * 0.5),
+                      child: Text(
+                        '${e.value}',
+                        style: widget.theme.cellTextStyle,
                       ),
-                  onTap: () => _deleteByKey(e),
-                ),
-              ],
-            ),
-          )
-          .toList(),
+                    ),
+                    onTap: () => _onCeilTap(e),
+                  ),
+                  DataCell(
+                    Text(
+                      '${e.value.runtimeType}',
+                      style: widget.theme.cellTextStyle,
+                    ),
+                    onTap: () => _onCeilTap(e),
+                  ),
+                  DataCell(
+                    widget.theme.deleteIcon ??
+                        Icon(
+                          Icons.close,
+                          color: deleteIconTheme?.color,
+                          size: deleteIconTheme?.size,
+                        ),
+                    onTap: () => _deleteByKey(e),
+                  ),
+                ],
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 
