@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/edit_field_form.dart';
 import 'package:storage_view/src/ui/widgets/responsive/responsive_builder.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
@@ -51,6 +52,11 @@ class _StorageViewState extends State<StorageView> {
                     child: ResponsiveBuilder(
                       largeScreen: (context) => Row(
                         children: [
+                          StorageTable(
+                            theme: widget.theme,
+                            controller: _controller,
+                            storageEnties: storageEnties,
+                          ),
                           if (_controller.selectedEntry != null)
                             Expanded(
                               flex: 1,
@@ -69,19 +75,16 @@ class _StorageViewState extends State<StorageView> {
                                 },
                               ),
                             ),
-                          StorageTable(
+                        ],
+                      ),
+                      mediumScreen: (context) => SafeArea(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: StorageTable(
                             theme: widget.theme,
                             controller: _controller,
                             storageEnties: storageEnties,
                           ),
-                        ],
-                      ),
-                      mediumScreen: (context) => SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: StorageTable(
-                          theme: widget.theme,
-                          controller: _controller,
-                          storageEnties: storageEnties,
                         ),
                       ),
                     ),

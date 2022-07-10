@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:storage_view/src/ui/widgets/modals/edit/typed/bool_selector/bool_selector_item.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/typed/bool_selector/bool_selector_item.dart';
 import 'package:storage_view/storage_view.dart';
 
 class BoolValueSelector extends StatefulWidget {

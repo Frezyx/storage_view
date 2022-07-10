@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/extensions/extensions.dart';
 import 'package:storage_view/src/ui/utils/utils.dart';
-import 'package:storage_view/src/ui/widgets/modals/edit/entry_info.dart';
-import 'package:storage_view/src/ui/widgets/modals/edit/typed/typed.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/entry_info.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/typed/typed.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 

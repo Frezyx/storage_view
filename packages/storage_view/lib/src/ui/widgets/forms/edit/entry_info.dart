@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:storage_view/src/ui/widgets/modals/edit/info_row.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/info_row.dart';
 import 'package:storage_view/storage_view.dart';
 
 class EntryInfo extends StatelessWidget {
@@ -17,8 +17,8 @@ class EntryInfo extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(4),
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(6),
       ),
       child: Column(
         children: [

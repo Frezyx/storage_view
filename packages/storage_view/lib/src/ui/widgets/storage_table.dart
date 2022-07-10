@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
 import 'package:storage_view/src/ui/utils/utils.dart';
+import 'package:storage_view/src/ui/widgets/forms/edit/edit_field_form.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
 
@@ -130,6 +131,7 @@ class _StorageTableState extends State<StorageTable> {
     showDialog(
       context: context,
       builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(0),
         backgroundColor: Colors.transparent,
         child: SingleChildScrollView(
           child: EditFieldForm(

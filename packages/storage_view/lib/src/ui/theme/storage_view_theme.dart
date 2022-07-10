@@ -45,6 +45,7 @@ class StorageViewTheme {
     this.editValueInputDecoration = _editValueInputDecoration,
     this.editValueTextStyle = const TextStyle(color: Colors.white),
     this.deleteIcon,
+    this.cardColor = const Color(0xFF2A2C36),
   });
 
   final Color backgroundColor;
@@ -56,6 +57,7 @@ class StorageViewTheme {
   final InputDecoration? editValueInputDecoration;
   final TextStyle? editValueTextStyle;
   final Widget? deleteIcon;
+  final Color cardColor;
 
   factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);

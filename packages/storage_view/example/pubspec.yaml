@@ -13,7 +13,7 @@ dependencies:
   storage_view:
     path:
       ../
-
+      
 dev_dependencies:
   flutter_test:
     sdk: flutter

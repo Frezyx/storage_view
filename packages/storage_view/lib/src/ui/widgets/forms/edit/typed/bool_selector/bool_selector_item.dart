@@ -20,13 +20,16 @@ class BoolSelectorItem extends StatelessWidget {
     final t = Theme.of(context);
     return InkWell(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
         decoration: BoxDecoration(
-          color: theme.backgroundColor,
-          border: Border.all(color: !selected ? Colors.white : t.primaryColor),
-          borderRadius: BorderRadius.circular(4),
+          color: theme.cardColor,
+          border: Border.all(
+            color: !selected ? Colors.transparent : t.primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(6),
         ),
         child: Text(
           title,
