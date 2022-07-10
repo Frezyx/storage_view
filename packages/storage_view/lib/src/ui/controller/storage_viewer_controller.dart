@@ -14,7 +14,7 @@ class StorageViewerController extends ChangeNotifier {
   Set<String> get selectedKeys => _selectedKeys;
   MapEntry<String, dynamic>? get selectedEntry => _selectedEntry;
 
-  final _data = <String, dynamic>{};
+  var _data = <String, dynamic>{};
   Map<String, dynamic> get data => _data;
 
   void selectEntry(MapEntry<String, dynamic> entry) {
@@ -36,6 +36,18 @@ class StorageViewerController extends ChangeNotifier {
   }
 
   void cangeFilter(int index, bool asc) {}
+
+  void search(String query) {
+    final matches = _data.entries.where((e) =>
+        e.value.toString().contains(query) ||
+        e.key.contains(query) ||
+        e.value.runtimeType.toString().contains(query));
+
+    final matchedMap = <String, dynamic>{};
+    matchedMap.addEntries(matches);
+    _data = matchedMap;
+    notifyListeners();
+  }
 
   Future<void> delete(String key) async {
     _storage.delete(key);

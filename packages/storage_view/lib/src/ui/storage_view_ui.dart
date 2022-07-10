@@ -24,10 +24,17 @@ class _StorageViewState extends State<StorageView> {
   late final StorageViewerController _controller = StorageViewerController(
     widget.storageDriver,
   );
+  final _searchController = TextEditingController();
 
   @override
   void initState() {
     _controller.load();
+    _searchController.addListener(() {
+      if (_searchController.text.isEmpty) {
+        _controller.load();
+      }
+      _controller.search(_searchController.text);
+    });
     super.initState();
   }
 
@@ -53,6 +60,7 @@ class _StorageViewState extends State<StorageView> {
                   title: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: FilledTextField(
+                      controller: _searchController,
                       theme: widget.theme,
                       hintText: 'Search',
                     ),
