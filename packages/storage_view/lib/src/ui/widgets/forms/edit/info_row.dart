@@ -18,7 +18,7 @@ class InfoRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: theme.cardColor,
+        color: theme.lightCardColor,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Column(

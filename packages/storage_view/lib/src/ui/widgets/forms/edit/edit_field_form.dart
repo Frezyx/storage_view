@@ -45,15 +45,19 @@ class _EditFieldFormState extends State<EditFieldForm> {
   @override
   Widget build(BuildContext context) {
     final double? buttonHeight =
-        ResponsiveHelper.of(context).isSmallScreen ? null : 60;
+        ResponsiveHelper.of(context).isSmallScreen ? null : 40;
+    final isLargeScreen = ResponsiveHelper.of(context).isLargeScreen;
     return Padding(
       padding: widget.margin ?? const EdgeInsets.all(30),
       child: Container(
         width: widget.width,
+        margin: const EdgeInsets.all(20).copyWith(
+          left: 0,
+        ),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: widget.theme.backgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          color: widget.theme.cardColor,
+          borderRadius: BorderRadius.circular(6),
         ),
         child: GestureDetector(
           onTap: () {
@@ -116,7 +120,9 @@ class _EditFieldFormState extends State<EditFieldForm> {
                 padding: const EdgeInsets.only(top: 30),
                 child: Row(
                   children: [
+                    if (isLargeScreen) const Spacer(flex: 4),
                     Expanded(
+                      flex: 2,
                       child: SizedBox(
                         height: buttonHeight,
                         child: ElevatedButton.icon(
@@ -132,6 +138,7 @@ class _EditFieldFormState extends State<EditFieldForm> {
                     ),
                     const SizedBox(width: 10),
                     Expanded(
+                      flex: 2,
                       child: SizedBox(
                         height: buttonHeight,
                         child: ElevatedButton.icon(

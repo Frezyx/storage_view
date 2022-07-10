@@ -51,7 +51,7 @@ class _StorageViewState extends State<StorageView> {
                   backgroundColor: widget.theme.cardColor,
                   automaticallyImplyLeading: false,
                   title: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: FilledTextField(
                       theme: widget.theme,
                       hintText: 'Search',
@@ -62,17 +62,27 @@ class _StorageViewState extends State<StorageView> {
                 SliverToBoxAdapter(
                   child: ResponsiveBuilder(
                     largeScreen: (context) => Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StorageTable(
-                          theme: widget.theme,
-                          controller: _controller,
-                          storageEnties: storageEnties,
+                        Container(
+                          margin: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: widget.theme.cardColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: StorageTable(
+                            theme: widget.theme,
+                            controller: _controller,
+                            storageEnties: storageEnties,
+                          ),
                         ),
                         if (_controller.selectedEntry != null)
                           Expanded(
                             flex: 1,
                             child: EditFieldForm(
                               theme: widget.theme,
+                              margin: EdgeInsets.zero,
                               entry: _controller.selectedEntry!,
                               onDeleted: () {
                                 _controller

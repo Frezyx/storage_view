@@ -46,6 +46,7 @@ class StorageViewTheme {
     this.editValueTextStyle = const TextStyle(color: Colors.white),
     this.deleteIcon,
     this.cardColor = const Color(0xFF2A2C36),
+    this.lightCardColor = const Color(0xFF3C3E4E),
   });
 
   final Color backgroundColor;
@@ -58,6 +59,7 @@ class StorageViewTheme {
   final TextStyle? editValueTextStyle;
   final Widget? deleteIcon;
   final Color cardColor;
+  final Color lightCardColor;
 
   factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);

@@ -25,7 +25,7 @@ class BoolSelectorItem extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
         decoration: BoxDecoration(
-          color: theme.cardColor,
+          color: theme.lightCardColor,
           border: Border.all(
             color: !selected ? Colors.transparent : t.primaryColor,
           ),
