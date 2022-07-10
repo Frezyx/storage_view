@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
 import 'package:storage_view/src/ui/widgets/forms/edit/edit_field_form.dart';
+import 'package:storage_view/src/ui/widgets/forms/forms.dart';
 import 'package:storage_view/src/ui/widgets/responsive/responsive_builder.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
@@ -43,48 +44,59 @@ class _StorageViewState extends State<StorageView> {
               checkboxTheme:
                   widget.theme.checkboxTheme ?? _getDefaultCheckboxTheme(),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: ResponsiveBuilder(
-                      largeScreen: (context) => Row(
-                        children: [
-                          StorageTable(
-                            theme: widget.theme,
-                            controller: _controller,
-                            storageEnties: storageEnties,
-                          ),
-                          if (_controller.selectedEntry != null)
-                            Expanded(
-                              flex: 1,
-                              child: EditFieldForm(
-                                theme: widget.theme,
-                                entry: _controller.selectedEntry!,
-                                onDeleted: () {
-                                  _controller
-                                      .delete(_controller.selectedEntry!.key);
-                                },
-                                onUpdated: (value) {
-                                  _controller.update(
-                                    _controller.selectedEntry!.key,
-                                    value,
-                                  );
-                                },
-                              ),
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  toolbarHeight: 70,
+                  backgroundColor: widget.theme.cardColor,
+                  automaticallyImplyLeading: false,
+                  title: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: FilledTextField(
+                      theme: widget.theme,
+                      hintText: 'Search',
+                    ),
+                  ),
+                  floating: true,
+                ),
+                SliverToBoxAdapter(
+                  child: ResponsiveBuilder(
+                    largeScreen: (context) => Row(
+                      children: [
+                        StorageTable(
+                          theme: widget.theme,
+                          controller: _controller,
+                          storageEnties: storageEnties,
+                        ),
+                        if (_controller.selectedEntry != null)
+                          Expanded(
+                            flex: 1,
+                            child: EditFieldForm(
+                              theme: widget.theme,
+                              entry: _controller.selectedEntry!,
+                              onDeleted: () {
+                                _controller
+                                    .delete(_controller.selectedEntry!.key);
+                              },
+                              onUpdated: (value) {
+                                _controller.update(
+                                  _controller.selectedEntry!.key,
+                                  value,
+                                );
+                              },
                             ),
-                        ],
-                      ),
-                      mediumScreen: (context) => SafeArea(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: StorageTable(
-                            theme: widget.theme,
-                            controller: _controller,
-                            storageEnties: storageEnties,
                           ),
+                      ],
+                    ),
+                    smallScreen: (context) => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0)
+                            .copyWith(top: 20),
+                        child: StorageTable(
+                          theme: widget.theme,
+                          controller: _controller,
+                          storageEnties: storageEnties,
                         ),
                       ),
                     ),
