@@ -53,12 +53,18 @@ class _StorageViewState extends State<StorageView> {
           final exception = e.exception;
           if (exception is StorageDriverException) {
             _scaffoldKey.currentState?.showSnackBar(
-              buildAlertSnackBar(
+              buildErrorAlertSnackBar(
                 title: exception.message,
                 description: exception.exception.toString(),
               ),
             );
           }
+          return;
+        }
+        if (e is TalkerLog) {
+          _scaffoldKey.currentState?.showSnackBar(
+            buildSuccessAlertSnackBar(title: e.message),
+          );
         }
       },
     );

@@ -35,13 +35,14 @@ class StorageViewerController extends ChangeNotifier {
       if (_data.isNotEmpty) {
         _selectedEntry ??= _data.entries.first;
       }
+
       notifyListeners();
     } catch (e, st) {
       final exception = StorageDriverException(
         message: 'Load data from storage exception',
         exception: e,
       );
-      ErrorHandler.handle(exception, st);
+      talker.handle(exception, st);
     }
   }
 
@@ -63,7 +64,7 @@ class StorageViewerController extends ChangeNotifier {
         message: 'Search data storage exception',
         exception: e,
       );
-      ErrorHandler.handle(exception, st);
+      talker.handle(exception, st);
     }
   }
 
@@ -76,20 +77,21 @@ class StorageViewerController extends ChangeNotifier {
         message: 'Delete data from storage exception',
         exception: e,
       );
-      ErrorHandler.handle(exception, st);
+      talker.handle(exception, st);
     }
   }
 
   Future<void> update(String key, dynamic value) async {
     try {
       await _storage.write(key: key, value: value);
+      talker.good('Value with key ($key) was updated');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
         message: 'Update data storage exception',
         exception: e,
       );
-      ErrorHandler.handle(exception, st);
+      talker.handle(exception, st);
     }
   }
 
