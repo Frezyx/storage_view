@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:storage_view/src/ui/controller/exceptions/exceptions.dart';
 import 'package:storage_view/src/ui/controller/storage_viewer_controller.dart';
-import 'package:storage_view/src/ui/widgets/forms/edit/edit_field_form.dart';
+import 'package:storage_view/src/ui/utils/utils.dart';
+import 'package:storage_view/src/ui/widgets/alerts/alerts.dart';
 import 'package:storage_view/src/ui/widgets/forms/forms.dart';
 import 'package:storage_view/src/ui/widgets/responsive/responsive_builder.dart';
 import 'package:storage_view/src/ui/widgets/widgets.dart';
 import 'package:storage_view/storage_view.dart';
+import 'package:talker/talker.dart';
 
 class StorageView extends StatefulWidget {
   const StorageView({
@@ -25,9 +30,12 @@ class _StorageViewState extends State<StorageView> {
     widget.storageDriver,
   );
   final _searchController = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  StreamSubscription<TalkerDataInterface>? _talkerExceptionsSub;
 
   @override
   void initState() {
+    _initTalkerSubscription();
     _controller.load();
     _searchController.addListener(() {
       if (_searchController.text.isEmpty) {
@@ -38,9 +46,40 @@ class _StorageViewState extends State<StorageView> {
     super.initState();
   }
 
+  void _initTalkerSubscription() {
+    _talkerExceptionsSub = talker.stream.listen(
+      (e) {
+        if (e is TalkerException) {
+          final exception = e.exception;
+          if (exception is StorageDriverException) {
+            _scaffoldKey.currentState?.showSnackBar(
+              buildErrorAlertSnackBar(
+                title: exception.message,
+                description: exception.exception.toString(),
+              ),
+            );
+          }
+          return;
+        }
+        if (e is TalkerLog) {
+          _scaffoldKey.currentState?.showSnackBar(
+            buildSuccessAlertSnackBar(title: e.message),
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _talkerExceptionsSub?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: widget.theme.backgroundColor,
       body: AnimatedBuilder(
         animation: _controller,
