@@ -30,7 +30,7 @@ class StorageViewerController extends ChangeNotifier {
       _data[key] = value;
     }
     if (_data.isNotEmpty) {
-      _selectedEntry = _data.entries.first;
+      _selectedEntry ??= _data.entries.first;
     }
     notifyListeners();
   }
