@@ -26,12 +26,15 @@ class _StorageTableState extends State<StorageTable> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final deleteIconTheme = widget.theme.deleteIconTheme;
+    final responsive = ResponsiveHelper.of(context);
     return Container(
-      margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.all(20),
+      margin: EdgeInsets.all(responsive.isSmallScreen ? 0 : 20),
+      padding: EdgeInsets.all(responsive.isSmallScreen ? 10 : 20),
       decoration: BoxDecoration(
         color: widget.theme.cardColor,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: responsive.isSmallScreen
+            ? BorderRadius.zero
+            : BorderRadius.circular(6),
       ),
       child: DataTable(
         showCheckboxColumn: true,
@@ -39,6 +42,8 @@ class _StorageTableState extends State<StorageTable> {
           widget.controller.toggleAllKeys(selected);
         },
         checkboxHorizontalMargin: 16,
+        horizontalMargin: responsive.isSmallScreen ? 10 : 20,
+        columnSpacing: responsive.isSmallScreen ? 20 : 40,
         border: widget.theme.tableBorder ?? _getDefaultTableBorder(),
         columns: <DataColumn>[
           DataColumn(

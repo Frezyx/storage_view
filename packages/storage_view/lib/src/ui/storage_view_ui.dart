@@ -78,9 +78,12 @@ class _StorageViewState extends State<StorageView> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveHelper.of(context);
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: widget.theme.backgroundColor,
+      backgroundColor: responsive.isSmallScreen
+          ? widget.theme.cardColor
+          : widget.theme.backgroundColor,
       body: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
