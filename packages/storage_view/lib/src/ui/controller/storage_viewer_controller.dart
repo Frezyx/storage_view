@@ -71,6 +71,7 @@ class StorageViewerController extends ChangeNotifier {
   Future<void> delete(String key) async {
     try {
       _storage.delete(key);
+      talker.good('Value with key ($key) was deleted');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
