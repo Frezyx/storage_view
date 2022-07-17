@@ -25,9 +25,6 @@ class _MyAppState extends State<MyApp> {
         textTheme: const TextTheme(),
       ),
       home: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('Example storage_view'),
-        // ),
         body: StorageView(storageDriver: _mockStorageDriver),
       ),
     );
