@@ -27,14 +27,14 @@ class _StorageTableState extends State<StorageTable> {
     final size = MediaQuery.of(context).size;
     final deleteIconTheme = widget.theme.deleteIconTheme;
     final responsive = ResponsiveHelper.of(context);
+    final isSmallScreen = responsive.isSmallScreen;
     return Container(
-      margin: EdgeInsets.all(responsive.isSmallScreen ? 0 : 20),
-      padding: EdgeInsets.all(responsive.isSmallScreen ? 10 : 20),
+      margin: EdgeInsets.all(isSmallScreen ? 0 : 20),
+      padding: EdgeInsets.all(isSmallScreen ? 10 : 20),
       decoration: BoxDecoration(
         color: widget.theme.cardColor,
-        borderRadius: responsive.isSmallScreen
-            ? BorderRadius.zero
-            : BorderRadius.circular(6),
+        borderRadius:
+            isSmallScreen ? BorderRadius.zero : BorderRadius.circular(6),
       ),
       child: DataTable(
         showCheckboxColumn: true,
@@ -42,8 +42,8 @@ class _StorageTableState extends State<StorageTable> {
           widget.controller.toggleAllKeys(selected);
         },
         checkboxHorizontalMargin: 16,
-        horizontalMargin: responsive.isSmallScreen ? 10 : 20,
-        columnSpacing: responsive.isSmallScreen ? 20 : 40,
+        horizontalMargin: isSmallScreen ? 10 : 20,
+        columnSpacing: isSmallScreen ? 20 : 40,
         border: widget.theme.tableBorder ?? _getDefaultTableBorder(),
         columns: <DataColumn>[
           DataColumn(
@@ -81,7 +81,9 @@ class _StorageTableState extends State<StorageTable> {
                 cells: <DataCell>[
                   DataCell(
                     Container(
-                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
+                      constraints: isSmallScreen
+                          ? null
+                          : BoxConstraints(maxWidth: size.width * 0.2),
                       child: Text(
                         e.key,
                         style: widget.theme.cellTextStyle,
@@ -91,7 +93,9 @@ class _StorageTableState extends State<StorageTable> {
                   ),
                   DataCell(
                     Container(
-                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
+                      constraints: isSmallScreen
+                          ? BoxConstraints(maxWidth: size.width * 0.7)
+                          : BoxConstraints(maxWidth: size.width * 0.2),
                       child: Text(
                         '${e.value}',
                         style: widget.theme.cellTextStyle,
@@ -101,7 +105,9 @@ class _StorageTableState extends State<StorageTable> {
                   ),
                   DataCell(
                     Container(
-                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
+                      constraints: isSmallScreen
+                          ? null
+                          : BoxConstraints(maxWidth: size.width * 0.2),
                       child: Text(
                         '${e.value.runtimeType}',
                         style: widget.theme.cellTextStyle,
