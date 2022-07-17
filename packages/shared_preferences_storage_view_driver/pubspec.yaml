@@ -1,6 +1,6 @@
 name: shared_preferences_storage_view_driver
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.1.0-dev.1
 homepage:
 publish_to: none
 
