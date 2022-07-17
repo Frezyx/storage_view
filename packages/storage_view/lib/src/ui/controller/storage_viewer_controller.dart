@@ -15,6 +15,7 @@ class StorageViewerController extends ChangeNotifier {
   Set<String> get keys => _keys;
   Set<String> get selectedKeys => _selectedKeys;
   MapEntry<String, dynamic>? get selectedEntry => _selectedEntry;
+  bool get isOneKeySelected => _selectedKeys.isNotEmpty;
 
   var _data = <String, dynamic>{};
   Map<String, dynamic> get data => _data;

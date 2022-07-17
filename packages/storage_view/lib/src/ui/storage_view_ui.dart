@@ -150,11 +150,53 @@ class _StorageViewState extends State<StorageView> {
                     ),
                   ),
                 ),
+                const SliverToBoxAdapter(child: SizedBox(height: 70)),
               ],
             ),
           );
         },
       ),
+      floatingActionButton: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            if (_controller.isOneKeySelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        height: 40,
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          label: const Text('Delete all'),
+                          icon: const Icon(Icons.delete),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Cacnel'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox();
+          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
