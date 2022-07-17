@@ -21,12 +21,12 @@ class EntryInfo extends StatelessWidget {
           value: entry.key,
           theme: theme,
         ),
-        const SizedBox(height: 10),
-        InfoRow(
-          title: 'Value',
-          value: entry.value.toString(),
-          theme: theme,
-        ),
+        // const SizedBox(height: 10),
+        // InfoRow(
+        //   title: 'Value',
+        //   value: entry.value.toString(),
+        //   theme: theme,
+        // ),
       ],
     );
   }
