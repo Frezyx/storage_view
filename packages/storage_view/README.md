@@ -1,39 +1,78 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<h1 align="center"> StorageView 🔎</h1>
+<h3 align="center"> Flutter inspector tool for any database, storage and shared_preferences. <br>Check and modify database values from UI of application.</h3>
+<p align="center">Show some ❤️ and <a href="https://github.com/Frezyx/storage_view">star the repo</a> to support the project!</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+<div align="center" >
+  <a href="docs/assets/storage_view_desktop.gif">
+    <img src="docs/assets/storage_view_desktop.gif" />
+  </a>
+</div>
 
 ## Getting started
+Follow these steps to use this package
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Add dependency
 
-## Usage
+```yaml
+dependencies:
+  storage_view: ^0.1.0
+```
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Add import package
 
 ```dart
-const like = 'sample';
+import 'package:storage_view/storage_view.dart';
+```
+
+### Implement driver
+The package uses a driver [StorageDriver](https://github.com/Frezyx/storage_view/blob/main/packages/storage_view/lib/src/models/storage_driver.dart) to interact with the database. <br>
+In order to connect your database you should use one of available drivers: <br>
+
+- [shared_preferences_storage_view_driver](https://github.com/Frezyx/storage_view/tree/main/packages/shared_preferences_storage_view_driver) that works with [shared_preferences](https://pub.dev/packages/shared_preferences) <br> See [example](https://github.com/Frezyx/storage_view/tree/main/examples/shared_preferences_example) for more information
+
+Or create your own StorageDriver implementation like there:
+```dart
+class MockStorageDriver implements StorageDriver {
+  final _data = <String, dynamic>{
+    'test_id' : 'test',
+  };
+
+  @override
+  FutureOr<Set<String>> getKeys<String>() {
+    return _data.keys.toSet() as Set<String>;
+  }
+
+  @override
+  FutureOr<T?> read<T>(String key) {
+    return _data[key] as T;
+  }
+
+  @override
+  FutureOr<void> write<T>({required String key, required T value}) {
+    _data[key] = value;
+  }
+
+  @override
+  FutureOr<void> delete(String key) {
+    _data.remove(key);
+  }
+}
+```
+
+### Implement StoargeView
+After the driver was connected, you can use StorageView anywhere in your application.
+```dart
+final _mockStorageDriver = MockStorageDriver();
+Scaffold(
+    body: StorageView(storageDriver: _mockStorageDriver),
+),
 ```
 
 ## Additional information
+The project is under development and ready for your pull-requests and issues 👍<br>
+Thank you for support ❤️
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+
+For help getting started with 😍 Flutter, view
+[online documentation](https://flutter.dev/docs), which offers tutorials, 
+samples, guidance on mobile development, and a full API reference.
