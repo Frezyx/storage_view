@@ -3,8 +3,8 @@
 <p align="center">Show some ❤️ and <a href="https://github.com/Frezyx/storage_view">star the repo</a> to support the project!</p>
 
 <div align="center" >
-  <a href="docs/assets/storage_view_desktop.gif">
-    <img src="docs/assets/storage_view_desktop.gif" />
+  <a href="https://github.com/Frezyx/storage_view/blob/main/docs/assets/storage_view_desktop.gif?raw=true">
+    <img src="https://github.com/Frezyx/storage_view/blob/main/docs/assets/storage_view_desktop.gif?raw=true"/>
   </a>
 </div>
 
