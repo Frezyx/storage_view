@@ -169,7 +169,19 @@ class _StorageViewState extends State<StorageView> {
                       child: SizedBox(
                         height: 40,
                         child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final confirmDelete = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => DeleteConfirmationModal(
+                                theme: widget.theme,
+                                title:
+                                    'Are you realy want delete all this fields ?',
+                              ),
+                            );
+                            if (confirmDelete ?? false) {
+                              _controller.deleteSelectedEntries();
+                            }
+                          },
                           label: const Text('Delete all'),
                           icon: const Icon(Icons.delete),
                           style: ButtonStyle(
@@ -185,7 +197,7 @@ class _StorageViewState extends State<StorageView> {
                       child: SizedBox(
                         height: 40,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => _controller.toggleAllKeys(false),
                           child: const Text('Cacnel'),
                         ),
                       ),

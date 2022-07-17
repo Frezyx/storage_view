@@ -6,9 +6,11 @@ class DeleteConfirmationModal extends StatelessWidget {
   const DeleteConfirmationModal({
     Key? key,
     required this.theme,
+    this.title = 'Are you realy want delete this field ?',
   }) : super(key: key);
 
   final StorageViewTheme theme;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class DeleteConfirmationModal extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Are you realy want delete this field ?',
+                title,
                 textAlign: TextAlign.center,
                 style: theme.editValueTextStyle?.copyWith(fontSize: 20),
               ),

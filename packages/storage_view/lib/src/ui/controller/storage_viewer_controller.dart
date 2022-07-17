@@ -40,7 +40,7 @@ class StorageViewerController extends ChangeNotifier {
       notifyListeners();
     } catch (e, st) {
       final exception = StorageDriverException(
-        message: 'Load data from storage exception',
+        message: 'Load entries from storage exception',
         exception: e,
       );
       talker.handle(exception, st);
@@ -62,7 +62,7 @@ class StorageViewerController extends ChangeNotifier {
       notifyListeners();
     } catch (e, st) {
       final exception = StorageDriverException(
-        message: 'Search data storage exception',
+        message: 'Search entries storage exception',
         exception: e,
       );
       talker.handle(exception, st);
@@ -76,7 +76,7 @@ class StorageViewerController extends ChangeNotifier {
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
-        message: 'Delete data from storage exception',
+        message: 'Delete entry from storage exception',
         exception: e,
       );
       talker.handle(exception, st);
@@ -90,7 +90,24 @@ class StorageViewerController extends ChangeNotifier {
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
-        message: 'Update data storage exception',
+        message: 'Update entry storage exception',
+        exception: e,
+      );
+      talker.handle(exception, st);
+    }
+  }
+
+  Future<void> deleteSelectedEntries() async {
+    try {
+      for (final key in _selectedKeys) {
+        await _storage.delete(key);
+      }
+      _selectedKeys.clear();
+      talker.good('Successful delete (${keys.length}) entries');
+      await load();
+    } catch (e, st) {
+      final exception = StorageDriverException(
+        message: 'Delete list entries storage exception',
         exception: e,
       );
       talker.handle(exception, st);
