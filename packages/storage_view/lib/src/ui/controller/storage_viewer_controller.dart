@@ -103,7 +103,7 @@ class StorageViewerController extends ChangeNotifier {
         await _storage.delete(key);
       }
       _selectedKeys.clear();
-      talker.good('Successful delete (${keys.length}) entries');
+      talker.good('Successful delete (${_selectedKeys.length}) entries');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(

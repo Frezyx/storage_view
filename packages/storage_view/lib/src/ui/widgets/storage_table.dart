@@ -80,15 +80,18 @@ class _StorageTableState extends State<StorageTable> {
                 onSelectChanged: (_) => widget.controller.setKeySelected(e.key),
                 cells: <DataCell>[
                   DataCell(
-                    Text(
-                      e.key,
-                      style: widget.theme.cellTextStyle,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
+                      child: Text(
+                        e.key,
+                        style: widget.theme.cellTextStyle,
+                      ),
                     ),
                     onTap: () => _onCeilTap(e),
                   ),
                   DataCell(
                     Container(
-                      constraints: BoxConstraints(maxWidth: size.width * 0.5),
+                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
                       child: Text(
                         '${e.value}',
                         style: widget.theme.cellTextStyle,
@@ -97,9 +100,12 @@ class _StorageTableState extends State<StorageTable> {
                     onTap: () => _onCeilTap(e),
                   ),
                   DataCell(
-                    Text(
-                      '${e.value.runtimeType}',
-                      style: widget.theme.cellTextStyle,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: size.width * 0.2),
+                      child: Text(
+                        '${e.value.runtimeType}',
+                        style: widget.theme.cellTextStyle,
+                      ),
                     ),
                     onTap: () => _onCeilTap(e),
                   ),

@@ -8,13 +8,15 @@ class MockStorageDriver implements StorageDriver {
   late final _data = <String, dynamic>{
     _uuid.v4(): 'test',
     _uuid.v4(): 213234,
-    _uuid.v4(): 234.56,
-    _uuid.v4(): 237846235472354443,
+    _uuid.v4(): 234.56324,
+    _uuid.v4(): 2378462354723,
     _uuid.v4(): Exception('Test exception'),
-    _uuid.v4(): true,
-    _uuid.v4():
+    'is_onboarding_shown': true,
+    'is_app_traking_banner_shown': true,
+    'selected_theme': 'light1',
+    'shop_descriprion':
         '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum''',
-    _uuid.v4():
+    'shop_comment':
         'There are many variations of passages of Lorem Ipsum available, but the majority have suffered',
     _uuid.v4(): _uuid.v4(),
     _uuid.v4(): _uuid.v4(),
