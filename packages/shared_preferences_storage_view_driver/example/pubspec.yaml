@@ -12,10 +12,10 @@ dependencies:
   shared_preferences: ^2.0.15  
   storage_view:
     path:
-      ../../packages/storage_view/
+      ../../storage_view/
   shared_preferences_storage_view_driver:
     path:
-      ../../packages/shared_preferences_storage_view_driver/
+      ../../shared_preferences_storage_view_driver/
 
 
 dev_dependencies:
