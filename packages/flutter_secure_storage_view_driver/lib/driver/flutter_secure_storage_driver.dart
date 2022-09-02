@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:storage_view/storage_view.dart';
 
-class SharedPreferencesDriver implements StorageDriver {
-  SharedPreferencesDriver(this.secureStorage);
+class FlutterSecureStorageDriver implements StorageDriver {
+  FlutterSecureStorageDriver(this.secureStorage);
 
   final FlutterSecureStorage secureStorage;
 
@@ -32,7 +32,16 @@ class SharedPreferencesDriver implements StorageDriver {
     if (T is bool) {
       return (value == 'true') as T?;
     }
-    return null;
+    if (int.tryParse(value) != null) {
+      return int.tryParse(value) as T?;
+    }
+    if (double.tryParse(value) != null) {
+      return double.tryParse(value) as T?;
+    }
+    if (value == 'true' || value == 'false') {
+      return (value == 'true') as T?;
+    }
+    return value as T?;
   }
 
   @override
