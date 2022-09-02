@@ -8,8 +8,8 @@ class SharedPreferencesDriver implements StorageDriver {
   final SharedPreferences sharedPreferences;
 
   @override
-  Set<String> getKeys<String>() {
-    return sharedPreferences.getKeys() as Set<String>;
+  Set<String> getKeys() {
+    return sharedPreferences.getKeys();
   }
 
   @override

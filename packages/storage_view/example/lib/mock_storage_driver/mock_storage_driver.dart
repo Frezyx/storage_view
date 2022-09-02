@@ -25,8 +25,8 @@ class MockStorageDriver implements StorageDriver {
   };
 
   @override
-  FutureOr<Set<String>> getKeys<String>() {
-    return _data.keys.toSet() as Set<String>;
+  FutureOr<Set<String>> getKeys() {
+    return _data.keys.toSet();
   }
 
   @override
