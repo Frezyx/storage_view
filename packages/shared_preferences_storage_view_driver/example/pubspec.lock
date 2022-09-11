@@ -262,9 +262,9 @@ packages:
   storage_view:
     dependency: "direct main"
     description:
-      path: "../../storage_view"
-      relative: true
-    source: path
+      name: storage_view
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.0-dev.1"
   stream_channel:
     dependency: transitive
