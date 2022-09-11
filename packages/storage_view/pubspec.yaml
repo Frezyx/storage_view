@@ -1,5 +1,5 @@
 name: storage_view
-description: A new Flutter package project.
+description: Flutter inspector tool for any database, storage and shared_preferences
 version: 0.1.0-dev.1
 homepage:
 
