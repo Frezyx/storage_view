@@ -69,6 +69,8 @@ Scaffold(
 ),
 ```
 
+  <a href="https://github.com/Frezyx/storage_view"><img src="https://hits.dwyl.com/Frezyx/storage_view.svg?style=flat" alt="Repository views"></a>
+
 ## Additional information
 The project is under development and ready for your pull-requests and issues 👍<br>
 Thank you for support ❤️
