@@ -29,6 +29,7 @@ The package uses a driver [StorageDriver](https://github.com/Frezyx/storage_view
 In order to connect your database you should use one of available drivers: <br>
 
 - [shared_preferences_storage_view_driver](https://github.com/Frezyx/storage_view/tree/main/packages/shared_preferences_storage_view_driver) that works with [shared_preferences](https://pub.dev/packages/shared_preferences) <br> See [example](https://github.com/Frezyx/storage_view/tree/main/examples/shared_preferences_example) for more information
+- [flutter_secure_storage_view_driver](https://github.com/Frezyx/storage_view/tree/main/packages/flutter_secure_storage_view_driver) that works with [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage) <br> See [example](https://github.com/Frezyx/storage_view/tree/main/packages/flutter_secure_storage_view_driver/example) for more information
 
 Or create your own StorageDriver implementation like there:
 ```dart
