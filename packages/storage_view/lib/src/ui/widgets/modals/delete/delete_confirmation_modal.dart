@@ -15,7 +15,7 @@ class DeleteConfirmationModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSmallScreen = ResponsiveHelper.of(context).isSmallScreen;
-    final buttonHeight = isSmallScreen ? 30.0 : 50.0;
+    final buttonHeight = isSmallScreen ? 50.0 : 50.0;
     return Center(
       child: Container(
         width: isSmallScreen ? null : 370,

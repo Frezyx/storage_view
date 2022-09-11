@@ -55,8 +55,8 @@ class _EditFieldFormState extends State<EditFieldForm> {
 
   @override
   Widget build(BuildContext context) {
-    final double? buttonHeight =
-        ResponsiveHelper.of(context).isSmallScreen ? null : 40;
+    final double buttonHeight =
+        ResponsiveHelper.of(context).isSmallScreen ? 50 : 40;
     final isLargeScreen = ResponsiveHelper.of(context).isLargeScreen;
     return Padding(
       padding: widget.margin ?? const EdgeInsets.all(30),
