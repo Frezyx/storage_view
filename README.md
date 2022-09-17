@@ -15,7 +15,7 @@ Follow these steps to use this package
 
 ```yaml
 dependencies:
-  storage_view: ^0.1.0-dev.1
+  storage_view: ^0.1.0-dev.2
 ```
 
 ### Add import package

@@ -1,7 +1,7 @@
 name: storage_view
 description: Flutter inspector tool for any database, storage and shared_preferences
-version: 0.1.0-dev.1
-homepage:
+version: 0.1.0-dev.2
+homepage: https://github.com/Frezyx/storage_view
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
