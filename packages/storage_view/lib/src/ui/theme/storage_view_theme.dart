@@ -64,11 +64,11 @@ class StorageViewTheme {
   factory StorageViewTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);
     return StorageViewTheme(
-      backgroundColor: t.backgroundColor,
-      cellTextStyle: t.textTheme.bodyText1,
-      columnTitleTextStyle: t.textTheme.headline6,
+      backgroundColor: t.colorScheme.background,
+      cellTextStyle: t.textTheme.bodyLarge,
+      columnTitleTextStyle: t.textTheme.titleLarge,
       deleteIconTheme: t.primaryIconTheme,
-      editValueTextStyle: t.textTheme.bodyText1,
+      editValueTextStyle: t.textTheme.bodyLarge,
     );
   }
 }
