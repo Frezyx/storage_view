@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_secure_storage: ^9.0.0
-  storage_view: 0.1.0-dev.2
+  storage_view: 0.1.0-dev.3
   flutter_secure_storage_view_driver:
     path:
       ../../flutter_secure_storage_view_driver/
