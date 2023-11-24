@@ -7,3 +7,7 @@ flutter pub get
 echo "shared_preferences_storage_view_driver"
 cd ../shared_preferences_storage_view_driver
 flutter pub get
+
+echo "flutter_secure_storage_view_driver"
+cd ../flutter_secure_storage_view_driver
+flutter pub get
