@@ -182,7 +182,7 @@ class _StorageViewState extends State<StorageView> {
     );
   }
 
-  void _handleTalkerData(TalkerDataInterface data, BuildContext context) {
+  void _handleTalkerData(TalkerData data, BuildContext context) {
     if (data is TalkerException) {
       final exception = data.exception;
       if (exception is StorageDriverException) {
@@ -197,7 +197,7 @@ class _StorageViewState extends State<StorageView> {
     }
     if (data is TalkerLog) {
       ScaffoldMessenger.of(context).showSnackBar(
-        buildSuccessAlertSnackBar(title: data.message),
+        buildSuccessAlertSnackBar(title: data.displayMessage),
       );
     }
   }

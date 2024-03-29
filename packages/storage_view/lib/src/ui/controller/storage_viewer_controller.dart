@@ -72,7 +72,7 @@ class StorageViewerController extends ChangeNotifier {
   Future<void> delete(String key) async {
     try {
       _storage.delete(key);
-      talker.good('Value with key ($key) was deleted');
+      talker.info('Value with key ($key) was deleted');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
@@ -86,7 +86,7 @@ class StorageViewerController extends ChangeNotifier {
   Future<void> update(String key, dynamic value) async {
     try {
       await _storage.write(key: key, value: value);
-      talker.good('Value with key ($key) was updated');
+      talker.info('Value with key ($key) was updated');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
@@ -103,7 +103,7 @@ class StorageViewerController extends ChangeNotifier {
         await _storage.delete(key);
       }
       _selectedKeys.clear();
-      talker.good('Successful delete (${_selectedKeys.length}) entries');
+      talker.info('Successful delete (${_selectedKeys.length}) entries');
       await load();
     } catch (e, st) {
       final exception = StorageDriverException(
