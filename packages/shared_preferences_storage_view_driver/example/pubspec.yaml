@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.0.15  
-  storage_view: 0.1.0-dev.3
+  storage_view: 0.1.0-dev.4
     # path:
     #   ../../storage_view/
   shared_preferences_storage_view_driver:

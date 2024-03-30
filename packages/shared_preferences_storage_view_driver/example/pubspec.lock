@@ -268,10 +268,10 @@ packages:
     dependency: transitive
     description:
       name: share_plus
-      sha256: "3ef39599b00059db0990ca2e30fca0a29d8b37aae924d60063f8e0184cf20900"
+      sha256: "05ec043470319bfbabe0adbc90d3a84cbff0426b9d9f3a6e2ad3e131fa5fa629"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.2"
+    version: "8.0.2"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -326,7 +326,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.0-dev.3"
+    version: "0.1.0-dev.4"
   shared_preferences_web:
     dependency: transitive
     description:
@@ -376,10 +376,10 @@ packages:
     dependency: "direct main"
     description:
       name: storage_view
-      sha256: "14363ac4a062512d9bdd4eb6b1091920d8e4c776089a2c6c76d8b74b1412d36d"
+      sha256: e0174c96687272d63c751cf84db6dad3a4b72eee56f68ef4e882b1f576d81325
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0-dev.3"
+    version: "0.1.0-dev.4"
   stream_channel:
     dependency: transitive
     description:
@@ -400,26 +400,26 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "1e4351253560219859a8e757f5b8dbd266d5c289a50dd90d12da4f3041184392"
+      sha256: "048ecec6799fe1cae14e515d68c2afbc2d11fb53dcea1d837f0712d1eaf7b73f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "4.1.3"
   talker_flutter:
     dependency: transitive
     description:
       name: talker_flutter
-      sha256: "4ebc616d1b5fce7bbb394ec6950a0469308bd9444b68e24f738b3b278f6bb649"
+      sha256: a74adf63123a748020c04715ca4809dbea9772fe193e52f799a4afbc5e943d14
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.0"
+    version: "4.1.3"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "3f8d051e5821c4aa3c27efe8204829dde128724cbd0294ae3cee76b097cf2cbb"
+      sha256: "23b640269a482ce260883dec8cf3618edb1959b93e2808dc7f7dea4c861e9875"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "4.1.3"
   term_glyph:
     dependency: transitive
     description:
