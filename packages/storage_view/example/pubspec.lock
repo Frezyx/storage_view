@@ -307,7 +307,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.0-dev.4"
+    version: "0.1.0-dev.5"
   stream_channel:
     dependency: transitive
     description:

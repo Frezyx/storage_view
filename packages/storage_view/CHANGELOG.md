@@ -1,3 +1,8 @@
+## 0.1.0-dev.5
+- Support talker ^5.0.0
+
+Thanks to [jamieastley](https://github.com/jamieastley)
+
 ## 0.1.0-dev.4
 - Update package dependencies to address Privacy Manifest requirements
 
