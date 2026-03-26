@@ -1,7 +1,8 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_secure_storage (6.0.0):
+  - flutter_secure_storage_darwin (10.0.0):
     - Flutter
+    - FlutterMacOS
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -10,26 +11,26 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - flutter_secure_storage_darwin (from `.symlinks/plugins/flutter_secure_storage_darwin/darwin`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_secure_storage:
-    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  flutter_secure_storage_darwin:
+    :path: ".symlinks/plugins/flutter_secure_storage_darwin/darwin"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
-  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
-  share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_secure_storage_darwin: acdb3f316ed05a3e68f856e0353b133eec373a23
+  path_provider_foundation: 608fcb11be570ce83519b076ab6a1fffe2474f05
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
 
-PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
+PODFILE CHECKSUM: 0dbd5a87e0ace00c9610d2037ac22083a01f861d
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2
