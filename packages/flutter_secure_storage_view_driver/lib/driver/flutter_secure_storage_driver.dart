@@ -20,48 +20,26 @@ class FlutterSecureStorageDriver implements StorageDriver {
     if (value == null) {
       return null;
     }
-    if (T is double) {
-      return double.tryParse(value) as T?;
-    }
-    if (T is int) {
-      return int.tryParse(value) as T?;
-    }
-    if (T is String) {
-      return value as T?;
-    }
-    if (T is bool) {
-      return (value == 'true') as T?;
-    }
-    if (int.tryParse(value) != null) {
-      return int.tryParse(value) as T?;
-    }
-    if (double.tryParse(value) != null) {
-      return double.tryParse(value) as T?;
-    }
-    if (value == 'true' || value == 'false') {
-      return (value == 'true') as T?;
-    }
-    return value as T?;
+
+    return switch (T) {
+      const (double) => double.tryParse(value) as T?,
+      const (int) => int.tryParse(value) as T?,
+      const (bool) => (value == 'true') as T?,
+      _ => value as T?,
+    };
   }
 
   @override
   FutureOr<void> write<T>({required String key, required T value}) async {
-    if (value is int || value is double || value is String) {
-      await secureStorage.write(key: key, value: value.toString());
-      return;
-    }
-    if (value is List<String>) {
-      await secureStorage.write(key: key, value: jsonEncode(value));
-      return;
-    }
-    if (value is bool) {
-      await secureStorage.write(key: key, value: value ? 'true' : 'fale');
-      return;
+    switch (value) {
+      case int() || double() || String() || bool():
+        await secureStorage.write(key: key, value: value.toString());
+      case List<String>():
+        await secureStorage.write(key: key, value: jsonEncode(value));
     }
   }
 
   @override
-  FutureOr<void> delete(String key) {
-    secureStorage.delete(key: key);
-  }
+  FutureOr<void> delete(String key) async =>
+      await secureStorage.delete(key: key);
 }
