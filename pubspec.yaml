@@ -1,0 +1,7 @@
+name: storage_view_workspace
+environment:
+  sdk: ^3.6.0
+workspace:
+  - packages/flutter_secure_storage_view_driver
+  - packages/shared_preferences_storage_view_driver
+  - packages/storage_view
