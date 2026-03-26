@@ -4,8 +4,9 @@ version: 0.1.0-dev.5
 homepage: https://github.com/Frezyx/storage_view
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
   flutter: ">=1.17.0"
+resolution: workspace
 
 dependencies:
   flutter:
